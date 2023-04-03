@@ -1,7 +1,8 @@
 const db = require('../config/db');
 const { DataTypes } = require('sequelize');
-const User_Profile = require('./users_profile.js');
-const User = db.define('users', {
+const UserAuth = require('./user_auth.js');
+
+const User = db.define('User', {
     id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
@@ -9,36 +10,33 @@ const User = db.define('users', {
         allowNull: false
     },
 
-    user_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-
-    profile_id: {
+    auth_id: {
         type: DataTypes.BIGINT,
         allowNull: false,
         references: {         // User belongsTo profile 1:1
-            model: 'users_profiles',
+            model: 'user_auth',
             key: 'id'
         }
     },
 
-    created_at: {
-        type: DataTypes.DATE(3),
+    full_name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+    },
+
+    biography: {
+        type: DataTypes.STRING,
     },
 
     updated_at: {
         type: DataTypes.DATE(3),
     }
+}, {
+    tableName: 'user'
 });
 
-User.belongsTo(User_Profile, {
-    foreignKey: 'profile_id'
+User.belongsTo(UserAuth, {
+    foreignKey: 'auth_id'
 });
 
 module.exports = User

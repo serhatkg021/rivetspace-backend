@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const User = require('../models/users.js');
+const User = require('../models/user_auth.js');
 const asyncHandler = require('express-async-handler')
 
 const tokenControl = asyncHandler(async (req, res, next) => {

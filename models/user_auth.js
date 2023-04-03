@@ -1,7 +1,7 @@
 const db = require('../config/db');
 const { DataTypes } = require('sequelize');
 
-const User_Profile = db.define('users_profiles', {
+const UserAuth = db.define('auth', {
     id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
@@ -9,24 +9,37 @@ const User_Profile = db.define('users_profiles', {
         allowNull: false
     },
 
+    user_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+
     mail: {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
 
-    full_name: {
-        type: DataTypes.STRING(50),
+    password: {
+        type: DataTypes.STRING,
         allowNull: false,
     },
 
-    biography: {
-        type: DataTypes.STRING,
+    mail_verify: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+
+    created_at: {
+        type: DataTypes.DATE(3),
     },
 
     updated_at: {
         type: DataTypes.DATE(3),
     }
+}, {
+    tableName: 'user_auth'
 });
 
 
-module.exports = User_Profile
+module.exports = UserAuth
